@@ -19,16 +19,46 @@ fsamp1 = 11025;
 y1 = bell(ff1,Io1,tau1,dur1,fsamp1);
 
 %play the sound (array and sampling rate)
-soundsc(y1, fsamp);
+soundsc(y1, fsamp1);
 
-%% b) Calculate the fundamental frequency of the "note” being played. 
+%%b) Calculate the fundamental frequency of the "note" being played. 
+
+% the fundamental frequency is calculated by finding the fourier transform
+% or FFT of the bell sound and finding the 
+
+y1fft = fft(y1);
+freq1_shift = ((-length(y1)/2:(length(y1)/2)-1))*fsamp1/length(y1);
+y1fft_shift = fftshift(y1fft);
+plot(freq1_shift, abs(y1fft_shift), '-b');
+
+%using built in funciton findpeaks to find all the peaks in y1fft_shift and
+%then sorts them and their locations 
+[psor1, locsor1] = findpeaks(abs(y1fft_shift), 'SortStr', 'Descend');
+f01 = abs(freq1_shift(locsor1(1)))*fsamp1/length(y1);
+
+%hold on;
+%plot(freq1, abs(y1fft), '-r');
+%hold off;
+%n1 = pow2(nextpow2(length(y1)));
+%transform1 = fft(y1,n1);
+%transform1shift = fftshift(transform1);
+%freq1 = (0:n1-1)*(fsamp1/n1);
+%power1 = abs(transform1).^2/n1;
+%power_mod1 = power1(1:floor(n1/2));
+%plot(power_mod1)
 
 %%Explain how you can verify by listening that you have the correct fundamental frequency.
+% Just by listening, we can verify that we have the correct fundamental
+% frequency by varying the carrier and modulating function parameters to get higher
+% and lower toned sounds and see if our fundamental frequency calcuation is
+% also going up and down with the tone changes. 
 
 
 %% c) Describe how you can hear the frequency content changing according to I(t)
 
-%%Plot fi(t) versus t for comparison.
+
+%%Plot fi(t) versus t for comparison
+
 
 %% d) Display a spectrogram of the signal
 
