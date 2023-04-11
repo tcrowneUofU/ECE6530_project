@@ -2,7 +2,7 @@
 
 % 2.1 Beat Notes and Frequency Resolution
 
-%% A) Create and plot a beat signal
+%% A) Create and plot a beat signal, we will be analyzing this signal with spectrograms
 
 Amp = 10;
 fc = 1024;
